@@ -30,7 +30,7 @@ api.get('/api/restaurants', async(req, res, next) => {
 });
 api.get('/api/reservations', async(req, res, next) => {
     try{
-        res.send(await fetchReservations)
+        res.send(await fetchReservations())
     }catch(ex){
         next(ex);
     }

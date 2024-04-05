@@ -36,7 +36,7 @@ const createCustomer = async(name)=>{
     const response = await client.query(SQL, [uuid.v4(), name]);
     return response.rows[0];
 };
-const createRestaurant = async()=>{
+const createRestaurant = async(name)=>{
     const SQL =`
     INSERT INTO restaurants(id, name) VALUES($1, $2) RETURNING *
     `;
@@ -74,7 +74,7 @@ const createReservation = async({restaurant_id, customer_id, party_count, date})
     const response = await client.query(SQL, [uuid.v4(), restaurant_id, customer_id, party_count, date]);
     return response.rows[0];
 };
-const destroyReservation = async()=>{
+const destroyReservation = async(id)=>{
     const SQL = `
     DELETE FROM reservations
     where id = $1
