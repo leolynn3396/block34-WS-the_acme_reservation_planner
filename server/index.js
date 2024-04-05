@@ -1,5 +1,5 @@
-const { client, 
-    createTables,    
+const { 
+    client,    
     createTables,
     createCustomer,
     createRestaurant,
@@ -7,27 +7,28 @@ const { client,
     fetchRestaurants,
     fetchReservations,
     createReservation,
-    destroyReservation } = require('./db');
+    destroyReservation
+} = require('./db');
 
 const express = require('express');
 const app = express();
 
 //GET
-api.get('/api/customers', async(req, res, next)=> {
+api.get('/api/customers', async(req, res, next) => {
     try{
         res.send(await fetchCustomers());
     }catch(ex){
         next(ex);
     }
 });
-api.get('/api/restaurants', async(req, res, next)=> {
+api.get('/api/restaurants', async(req, res, next) => {
     try{
         res.send(await fetchRestaurants());
     }catch(ex){
         next(ex);
     }
 });
-api.get('/api/reservations', async(req, res, next)=> {
+api.get('/api/reservations', async(req, res, next) => {
     try{
         res.send(await fetchReservations)
     }catch(ex){
@@ -44,7 +45,6 @@ app.post('/api/customers/:id/reservations', async(req, res, next) => {
             next(ex);
         }
 });
-
 
 //DELETE
 app.delete('/api/customers/:customer_id/reservations/:id', async(req, res, next) => {
@@ -76,9 +76,9 @@ const init = async()=> {
     console.log(await fetchCustomers());
     console.log(await fetchRestaurants());
     await Promise.all([
-        createReservation([customer_id: ling.id, restaurant_id: HDL.id, date: '04/01/2024', party_count: '6']),
-        createReservation([customer_id: ling.id, restaurant_id: DolarShop.id, date: '04/15/2024', party_count: '7']),
-        createReservation([customer_id: amy.id, restaurant_id: ChengduMemory.id, date: '07/04/2024', party_count: '8'])
+        createReservation({customer_id: ling.id, restaurant_id: HDL.id, date: '04/01/2024', party_count: '6'}),
+        createReservation({customer_id: ling.id, restaurant_id: DolarShop.id, date: '04/15/2024', party_count: '7'}),
+        createReservation({customer_id: amy.id, restaurant_id: ChengduMemory.id, date: '07/04/2024', party_count: '8'})
     ]);
     const reservations = await fetchReservations();
     console.log(reservations);
